@@ -6,6 +6,6 @@ public class EmpPlenty {
     HashSet<User> massEmp = new HashSet<User>();
 
     public void addOB() {
-        massEmp.add()
+        massEmp.add();
     }
 }
