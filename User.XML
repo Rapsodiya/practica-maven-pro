@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<User>
+  <Employee id="1" name="lida" dateBirthday="2134" phone="2121" salary="3232.0" idDepartment="3232" />
+</User>

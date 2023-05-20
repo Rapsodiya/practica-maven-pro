@@ -1,9 +1,9 @@
-package model;
+package proekt.model;
 
 public class User {
+        private long Id;
         private String name;
         private String dateBirthday; //Заменить на date?
-        private long Id;
         private long Phone;
         private double salary;
         private long idDepartment;
@@ -27,7 +27,8 @@ public class User {
             this.idDepartment = 0;
         }
 
-    public String getName() {
+
+        public String getName() {
             return name;
         }
 
@@ -47,7 +48,7 @@ public class User {
             return Id;
         }
 
-        public void setId(long id) {
+        public void setId(int id) {
             Id = id;
         }
 
@@ -75,4 +76,8 @@ public class User {
             this.idDepartment = idDepartment;
         }
 
+        public String toString() {
+            return "Id: " + getId() + "; name: " + getName() + "; dateBirthday: " + getDateBirthday()  +
+                    "; Phone: " + getPhone() + "; salary: " + getSalary() + "; idDepartament: " + getIdDepartment();
+        }
 }
