@@ -1,4 +1,4 @@
-package proekt.Repository;
+package proekt.Controllers;
 
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -6,7 +6,6 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
-import proekt.model.User;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -17,12 +16,11 @@ import java.util.List;
 import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
 
-
 public class UserRepository {
-    public ArrayList<User> masssEmp = new ArrayList<>();
+    public ArrayList<proekt.model.User> masssEmp = new ArrayList<>();
 
 
-    public UserRepository(ArrayList<User> masssEmp) {
+    public UserRepository(ArrayList<proekt.model.User> masssEmp) {
         this.masssEmp = masssEmp;
     }
 
@@ -32,7 +30,7 @@ public class UserRepository {
 
 
     //добавление элемента в массив
-    public void addEmp(User newUser) {
+    public void addEmp(proekt.model.User newUser) {
         masssEmp.add(newUser);
     }
 
@@ -48,14 +46,14 @@ public class UserRepository {
 
 
     //получение массива
-    public ArrayList<User> getUserAll() {
+    public ArrayList<proekt.model.User> getUserAll() {
         return masssEmp;
     }
 
 
     //получение элемента из массива
-    public User _getUser(Long index) {
-        for (User user : masssEmp) {
+    public proekt.model.User _getUser(Long index) {
+        for (proekt.model.User user : masssEmp) {
             if (user.getId() == index) {
                 return user;
             }
@@ -69,7 +67,7 @@ public class UserRepository {
         String filename = "User.XML";
         Document doc = new Document();
         doc.setRootElement(new Element("User"));
-        for (User user : masssEmp) {
+        for (proekt.model.User user : masssEmp) {
             Element userElement = new Element("Employee");
             userElement.setAttribute("id", String.valueOf(user.getId()));
             userElement.setAttribute("name", String.valueOf(user.getName()));
@@ -91,13 +89,13 @@ public class UserRepository {
 
 
     //чтение файла формата XML
-    public ArrayList<User> giveElement(String fileName) throws JDOMException, IOException {
+    public ArrayList<proekt.model.User> giveElement(String fileName) throws JDOMException, IOException {
         SAXBuilder saxBuilder = new SAXBuilder();
         Document jdomDocument = saxBuilder.build(new File(fileName));
         Element root = jdomDocument.getRootElement();
         List<Element> masEmp = root.getChildren("Employee");
         for (Element userEl : masEmp) {
-            User user = new User();
+            proekt.model.User user = new proekt.model.User();
             user.setId(Integer.parseInt(userEl.getAttributeValue("id")));
             user.setName(String.valueOf(userEl.getAttributeValue("name")));
             user.setDateBirthday(String.valueOf(userEl.getAttributeValue("dateBirthday")));
@@ -110,29 +108,29 @@ public class UserRepository {
     }
 
     public int size() {
-        return  masssEmp.size();
+        return masssEmp.size();
     }
 
     //коэф. эксцесса ИЗИ
-    public double getKurtosis(){
+    public double getKurtosis() {
         double salary = 0;
         double matpor = 0;
         double dispersia = 0;
         //получение средней зарплаты
-        for (User userloc : masssEmp) {
+        for (proekt.model.User userloc : masssEmp) {
             salary += userloc.getSalary();
         }
         //получение дисперсии и центрального эмпирического момента четвёртого порядка
-        double averageSalary = (salary/masssEmp.size());
-        for (User userloc : masssEmp) {
+        double averageSalary = (salary / masssEmp.size());
+        for (proekt.model.User userloc : masssEmp) {
             double locSalary = userloc.getSalary();
-            matpor += pow((locSalary - averageSalary),4);
-            dispersia = dispersia + pow((locSalary - averageSalary),2);
+            matpor += pow((locSalary - averageSalary), 4);
+            dispersia = dispersia + pow((locSalary - averageSalary), 2);
         }
-        double matporFour = matpor/ masssEmp.size();
-        double averageOtkl = pow(sqrt(dispersia/masssEmp.size()),4);
+        double matporFour = matpor / masssEmp.size();
+        double averageOtkl = pow(sqrt(dispersia / masssEmp.size()), 4);
         //любимый эксцесс
-        double kurtosis = (matporFour/averageOtkl)-3;
+        double kurtosis = (matporFour / averageOtkl) - 3;
         return kurtosis;
     }
 
